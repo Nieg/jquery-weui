@@ -609,12 +609,6 @@
     }
   });
 
-  //修复picker会滚动页面的bug
-  $(document).on($.touchEvents.move, ".picker-modal-inner", function(e) {
-    e.preventDefault();
-  });
-
-
   $.openPicker = function(tpl, className, callback) {
 
     if(typeof className === "function") {
@@ -624,7 +618,15 @@
 
     $.closePicker();
 
-    var container = $("<div class='weui-picker-container "+ (className || "") + "'></div>").appendTo(document.body);
+    var container = $("<div class='weui-picker-container "+ (className || "") + "'></div>")
+
+    //修复picker会滚动页面的bug
+    $( ".picker-modal-inner",container).on($.touchEvents.move, function(e) {
+        e.preventDefault();
+    });
+
+    container.appendTo(document.body);
+
     container.show();
 
     container.addClass("weui-picker-container-visible");

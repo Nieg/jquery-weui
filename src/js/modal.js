@@ -114,16 +114,17 @@
       text: config.text,
       title: config.title,
       buttons: [
-      {
+        {
+          text: defaults.buttonOK,
+          className: "primary",
+          onClick: config.onOK
+        },
+        {
         text: defaults.buttonCancel,
         className: "default",
         onClick: config.onCancel
-      },
-      {
-        text: defaults.buttonOK,
-        className: "primary",
-        onClick: config.onOK
-      }]
+        }
+      ]
     });
   };
 
@@ -154,25 +155,25 @@
       title: config.title,
       autoClose: false,
       buttons: [
-      {
+        {
+          text: defaults.buttonOK,
+          className: "primary",
+          onClick: function() {
+            var input = $("#weui-prompt-input").val();
+            if (!config.empty && (input === "" || input === null)) {
+              modal.find('.weui-prompt-input').focus()[0].select();
+              return false;
+            }
+            $.closeModal();
+            config.onOK && config.onOK.call(modal, input);
+          }
+        },
+        {
         text: defaults.buttonCancel,
         className: "default",
         onClick: function () {
           $.closeModal();
           config.onCancel && config.onCancel.call(modal);
-        }
-      },
-      {
-        text: defaults.buttonOK,
-        className: "primary",
-        onClick: function() {
-          var input = $("#weui-prompt-input").val();
-          if (!config.empty && (input === "" || input === null)) {
-            modal.find('.weui-prompt-input').focus()[0].select();
-            return false;
-          }
-          $.closeModal();
-          config.onOK && config.onOK.call(modal, input);
         }
       }]
     }, function () {
@@ -213,13 +214,6 @@
       autoClose: false,
       buttons: [
       {
-        text: defaults.buttonCancel,
-        className: "default",
-        onClick: function () {
-          $.closeModal();
-          config.onCancel && config.onCancel.call(modal);
-        }
-      }, {
         text: defaults.buttonOK,
         className: "primary",
         onClick: function() {
@@ -235,6 +229,14 @@
           }
           $.closeModal();
           config.onOK && config.onOK.call(modal, username, password);
+        }
+      },
+      {
+        text: defaults.buttonCancel,
+        className: "default",
+        onClick: function () {
+          $.closeModal();
+          config.onCancel && config.onCancel.call(modal);
         }
       }]
     }, function () {
