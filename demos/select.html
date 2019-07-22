@@ -9,7 +9,8 @@
 
 
     <header class='demos-header'>
-      <h1 class="demos-title">Select</h1>
+
+      <h1 class="demos-title">selectEx</h1>
     </header>
 
     
@@ -37,7 +38,8 @@
     <% include _foot.html %>
 
     <script>
-      $("#job").select({
+
+      $("#job").selectEx({
         title: "选择职业",
         items: ["法官", "医生", "猎人", "学生", "记者", "其他"],
         onChange: function(d) {
@@ -50,7 +52,8 @@
           console.log("open");
         },
       });
-      $("#mobile").select({
+
+      $("#mobile").selectEx({
         title: "选择手机",
         items: [
           {
@@ -91,7 +94,8 @@
           }
         ]
       });
-      $("#in").select({
+
+      $("#in").selectEx({
         title: "您的爱好",
         multi: true,
         min: 2,

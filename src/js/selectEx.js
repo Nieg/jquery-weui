@@ -6,7 +6,7 @@
 
   var selects = [];
 
-  var Select = function(input, config) {
+  var SelectEx = function(input, config) {
 
     var self = this;
     this.config = config;
@@ -30,7 +30,7 @@
     selects.push(this)
   }
 
-  Select.prototype.initConfig = function() {
+  SelectEx.prototype.initConfig = function() {
     this.config = $.extend({}, defaults, this.config);
 
     var config = this.config;
@@ -58,7 +58,7 @@
     this._init = true;
   }
 
-  Select.prototype.updateInputValue = function(values, titles) {
+  SelectEx.prototype.updateInputValue = function(values, titles) {
     var v, t;
     if(this.config.multi) {
       v = values.join(this.config.split);
@@ -93,7 +93,7 @@
     this.config.onChange && this.config.onChange.call(this, data);
   }
 
-  Select.prototype.parseInitValue = function() {
+  SelectEx.prototype.parseInitValue = function() {
     var value = this.$input.val();
     var items = this.config.items;
 
@@ -111,7 +111,7 @@
     }
   }
 
-  Select.prototype._bind = function(dialog) {
+  SelectEx.prototype._bind = function(dialog) {
     var self = this,
         config = this.config;
     dialog.on("change", function(e) {
@@ -133,7 +133,7 @@
   }
 
   //更新数据
-  Select.prototype.update = function(config) {
+  SelectEx.prototype.update = function(config) {
     this.config = $.extend({}, this.config, config);
     this.initConfig();
     if(this._open) {
@@ -141,7 +141,7 @@
     }
   }
   
-  Select.prototype.open = function(values, titles) {
+  SelectEx.prototype.open = function(values, titles) {
 
     if(this._open) return;
 
@@ -166,7 +166,7 @@
     if(config.onOpen) config.onOpen(this);
   }
 
-  Select.prototype.close = function(callback, force) {
+  SelectEx.prototype.close = function(callback, force) {
     if (!this._open) return false;
     var self = this,
         beforeClose = this.config.beforeClose;
@@ -197,12 +197,12 @@
     return true
   }
 
-  Select.prototype.onClose = function() {
+  SelectEx.prototype.onClose = function() {
     this._open = false;
     if(this.config.onClose) this.config.onClose(this);
   }
 
-  Select.prototype.getHTML = function(callback) {
+  SelectEx.prototype.getHTML = function(callback) {
     var config = this.config;
     return this.tpl({
       items: config.items,
@@ -212,21 +212,21 @@
   }
 
 
-  $.fn.select = function(params, args) {
+  $.fn.selectEx = function(params, args) {
 
     return this.each(function() {
       var $this = $(this);
-      if(!$this.data("weui-select")) $this.data("weui-select", new Select(this, params));
+      if(!$this.data("weui-select")) $this.data("weui-select", new SelectEx(this, params));
 
-      var select = $this.data("weui-select");
+      var selectEx = $this.data("weui-select");
 
-      if(typeof params === typeof "a") select[params].call(select, args);
+      if(typeof params === typeof "a") selectEx[params].call(selectEx, args);
 
-      return select;
+      return selectEx;
     });
   }
 
-  defaults = $.fn.select.prototype.defaults = {
+  defaults = $.fn.selectEx.prototype.defaults = {
     items: [],
     input: undefined, //输入框的初始值
     title: "请选择",
