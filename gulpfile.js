@@ -101,7 +101,7 @@ gulp.task('cssmin', gulp.series("less", function (cb) {
 }));
 
 gulp.task('ejs', function (cb) {
-  return gulp.src(["./demos/*.html", "!./demos/_*.html"])
+  return gulp.src(["./demos/ejs/*.html", "!./demos/ejs/_*.html"])
     .pipe(ejs({}))
     .pipe(gulp.dest("./dist/demos/"));
     cb();
